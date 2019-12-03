@@ -47,7 +47,10 @@ func lissajous(out io.Writer) {
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex)
+			img.SetColorIndex(
+				size+int(x*size+0.5), size+int(y*size+0.5),
+				blackIndex, // 最后插入的逗号不会导致编译错误，这是 go 的特性，同时防止 go 在行尾自动加入分号
+			)
 		}
 
 		phase += 0.1

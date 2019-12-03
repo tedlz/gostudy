@@ -14,10 +14,14 @@ import "fmt"
 // false
 // 1
 func main() {
+	// 另一个创建类型变量的方法是调用内建的 new 函数
+	// new(T) 将创建一个 T 类型的匿名变量，初始化为 T 类型的零值
+	// 然后返回变量地址，返回的指针类型为 *T
+
 	// 一
 	p := new(int)   // p, *int 类型，指向匿名的 int 变量
 	fmt.Println(*p) // 0
-	*p = 2
+	*p = 2          // 设置 int 匿名变量的值为 2
 	fmt.Println(*p) // 2
 
 	// 二
@@ -53,6 +57,6 @@ func newInt2() *int {
 
 // new 只是一个预定义函数，非关键字，因此可以将 new 名字重新定义为别的类型
 // 由于 new 被定义为 int 变量名，所以在函数 delta 中无法使用内置的 new 函数
-func delta(new, old int) int {
+func delta(old, new int) int {
 	return new - old
 }
