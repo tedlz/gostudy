@@ -24,10 +24,11 @@ func main() {
 		for px := 0; px < width; px++ {
 			x := float64(px)/width*(xmax-xmin) + xmin
 			z := complex(x, y)
+			// 图像点（px, py）表示复数值 z
 			img.Set(px, py, mandelbrot(z))
 		}
 	}
-	png.Encode(os.Stdout, img)
+	png.Encode(os.Stdout, img) // 忽略了错误
 }
 
 func mandelbrot(z complex128) color.Color {
