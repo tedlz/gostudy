@@ -105,4 +105,7 @@ func struct3() {
 	w.X = 2
 	// main 为 package
 	fmt.Printf("%#v\n", w) // main.Wheel{Circle:main.Circle{Point:main.Point{X:2, Y:8}, Radius:5}, Spokes:20}
+
+	// 因为匿名成员也有一个隐式的名字，因此不能同时包含两个类型相同的匿名成员，这会导致名字冲突
+
 }
