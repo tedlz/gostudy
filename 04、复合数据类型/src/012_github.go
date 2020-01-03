@@ -1,20 +1,15 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"gostudy/04、复合数据类型/files"
 	"log"
-	"net/http"
-	"net/url"
 	"os"
-	"strings"
-	"time"
 )
 
 // 012、JSON github
 // go run 012_github.go repo:golang/go is:open json decoder
 // 输出：
-// https://api.github.com/search/issues?q=repo%3Agolang%2Fgo+is%3Aopen+json+decoder
 // 45 issues:
 // #36225     dsnet encoding/json: the Decoder.Decode API lends itself to m
 // #33416   bserdar encoding/json: This CL adds Decoder.InternKeys
@@ -47,7 +42,7 @@ import (
 // #19636 josselin- encoding/base64: decoding is slow
 // #30701 LouAdrien encoding/json: ignore tag "-" not working on embedded s
 func main() {
-	result, err := SearchIssues(os.Args[1:])
+	result, err := files.SearchIssues(os.Args[1:])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,50 +50,4 @@ func main() {
 	for _, item := range result.Items {
 		fmt.Printf("#%-5d %9.9s %.55s\n", item.Number, item.User.Login, item.Title)
 	}
-}
-
-// IssuesURL *
-const IssuesURL = "https://api.github.com/search/issues"
-
-// User *
-type User struct {
-	Login   string `json:"login"`
-	HTMLURL string `json:"html_url"`
-}
-
-// Issue *
-type Issue struct {
-	Number    int       `json:"number"`
-	HTMLURL   string    `json:"html_url"`
-	Title     string    `json:"title"`
-	State     string    `json:"state"`
-	User      *User     `json:"user"`
-	CreatedAt time.Time `json:created_at`
-	Body      string
-}
-
-// IssuesSearchResult *
-type IssuesSearchResult struct {
-	TotalCount int      `json:"total_count"`
-	Items      []*Issue `json:"items"`
-}
-
-// SearchIssues *
-func SearchIssues(terms []string) (*IssuesSearchResult, error) {
-	q := url.QueryEscape(strings.Join(terms, " "))
-	resp, err := http.Get(IssuesURL + "?q=" + q)
-	fmt.Println(IssuesURL + "?q=" + q)
-	if err != nil {
-		return nil, err
-	}
-	if resp.StatusCode != http.StatusOK {
-		resp.Body.Close()
-		return nil, fmt.Errorf("search query failed: %s", resp.Status)
-	}
-	var result IssuesSearchResult
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		resp.Body.Close()
-		return nil, err
-	}
-	return &result, nil
 }
