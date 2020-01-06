@@ -6,6 +6,13 @@ import (
 )
 
 // 001、函数声明
+// go run 001_declare.go
+// 输出:
+// 5
+// func(int, int) int
+// func(int, int) int
+// func(int, int) int
+// func(int, int) int
 func main() {
 	fmt.Println(hypot(3, 4)) // 5
 
