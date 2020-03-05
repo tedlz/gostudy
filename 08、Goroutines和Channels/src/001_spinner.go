@@ -6,6 +6,7 @@ import (
 )
 
 // 001、goroutines
+// go run 001_spinner.go
 func main() {
 	// 在 Go 语言中，每一个并发的执行单元叫做一个 goroutine
 	// 当一个程序启动时，其主函数即在一个单独的 goroutine 中运行，我们叫它 main goroutine
