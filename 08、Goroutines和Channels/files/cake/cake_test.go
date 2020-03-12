@@ -1,7 +1,7 @@
-package files_test
+package cake_test
 
 import (
-	cake "gostudy/08、Goroutines和Channels/files"
+	"gostudy/08、Goroutines和Channels/files/cake"
 
 	"testing"
 	"time"
