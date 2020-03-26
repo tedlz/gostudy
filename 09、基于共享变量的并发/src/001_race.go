@@ -1,5 +1,6 @@
 package main
 
+// 001、竞争条件
 func main() {
 	// 在一个线性（就是说只有一个 goroutine）的程序中，程序的执行顺序只由程序的逻辑来决定
 	// 在有两个或更多 goroutine 的程序中，每一个 goroutine 内的语句也是按照既定的顺序去执行的，
