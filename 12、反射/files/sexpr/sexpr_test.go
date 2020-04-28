@@ -1,7 +1,15 @@
 package sexpr
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
+// 测试验证对一个复杂数据值进行编码和解码会产生相同的结果
+
+// 该测试不对编码输出做出直接断言，因为该输出取决于映射迭代顺序，该顺序是不确定的
+// 可以通过使用 -v 参数运行测试来检查 t.Log 语句的输出：
+// go test -v
 func Test(t *testing.T) {
 	type Movie struct {
 		Title, Subtitle string
@@ -36,6 +44,18 @@ func Test(t *testing.T) {
 		t.Fatalf("Marshal Failed: %v", err)
 	}
 	t.Logf("Marshal() = %s\n", data)
+
+	// 解码
+	var movie Movie
+	if err := Unmarshal(data, &movie); err != nil {
+		t.Fatalf("Unmarshal failed: %v", err)
+	}
+	t.Logf("Unmarshal() = %+v\n", movie)
+
+	// 检查相等性
+	if !reflect.DeepEqual(movie, strangelove) {
+		t.Fatal("not equal")
+	}
 
 	// 格式化
 	data, err = MarshalIndent(strangelove)
