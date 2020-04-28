@@ -1,3 +1,4 @@
+// Package display 提供了一种显示结构化数据的方法
 package display
 
 import (
@@ -49,6 +50,7 @@ func display(path string, v reflect.Value) {
 }
 
 // formatAtom 格式化值而不检查其内部结构
+// 这个函数拷贝自 gopl.io/ch12/format
 func formatAtom(v reflect.Value) string {
 	switch v.Kind() {
 	case reflect.Invalid:
