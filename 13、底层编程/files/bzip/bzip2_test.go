@@ -9,6 +9,13 @@ import (
 	"gostudy/13、底层编程/files/bzip"
 )
 
+// !
+// ! 注意：本人在 debian 10 下运行 bzip2_test.go 时遇到了以下错误：
+// ! fatal error: bzlib.h: No such file or directory
+// ! 解决方法：
+// ! sudo apt install libbz2-dev
+// !
+
 func TestBzip2(t *testing.T) {
 	var compressed, uncompressed bytes.Buffer
 	w := bzip.NewWriter(&compressed)
